@@ -1,6 +1,9 @@
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { createStackNavigator } from 'react-navigation-stack' 
+import { createStackNavigator } from 'react-navigation-stack'
+
+import NotificationNavigator from './NotificationNavigator'
+import AnotherNavigator from './AnotherNavigator'
 
 import FeedScreen from '../screens/feedScreen'
 import MessageScreen from '../screens/messageScreen'
@@ -50,6 +53,18 @@ const AppNavigator = createBottomTabNavigator({
         screen: _MessageNavigator,
         navigationOptions: {
             title: 'Повідомлення'
+        }
+    },
+    Notification: {
+        screen: NotificationNavigator,
+        navigationOptions: {
+            title: 'Пуші'
+        }
+    },
+    Another: {
+        screen: AnotherNavigator,
+        navigationOptions: {
+            title: 'Меню'
         }
     }
 }, {
