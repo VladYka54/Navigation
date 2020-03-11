@@ -8,6 +8,7 @@ import AnotherNavigator from './AnotherNavigator'
 import FeedScreen from '../screens/feedScreen'
 import MessageScreen from '../screens/messageScreen'
 import SearchScreen from '../screens/searchScreen'
+import LoginScreen from '../screens/loginScreen'
 
 const _FeedNavigator = createStackNavigator({
     Feed: {
@@ -36,7 +37,22 @@ const _MessageNavigator = createStackNavigator({
     }
 })
 
+const _LoginNavigator = createStackNavigator({
+    Login: {
+        screen: LoginScreen,
+        navigationOptions: {
+            title: 'Повідомлення'
+        }
+    }
+})
+
 const AppNavigator = createBottomTabNavigator({
+    Login: {
+        screen: _LoginNavigator,
+        navigationOptions: {
+            title: 'Login'
+        }
+    },
     Feed: {
         screen: _FeedNavigator,
         navigationOptions: {
@@ -68,7 +84,7 @@ const AppNavigator = createBottomTabNavigator({
         }
     }
 }, {
-    initialRouteName: 'Feed'
+    initialRouteName: 'Login'
 })
 
 export default createAppContainer(AppNavigator)

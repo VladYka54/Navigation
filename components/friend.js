@@ -12,7 +12,6 @@ const Friends = ({ name, goToFriend }) => (
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
         paddingVertical: 20,
         borderBottomWidth: StyleSheet.hairlineWidth
     }

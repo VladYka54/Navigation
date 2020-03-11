@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 
 const FriendScreen = ({ navigation }) => {
+    const { name = [] } = navigation.state.params;
     return (
         <View style={styles.container}>
-           <Text>Друг {navigation.getParam('name')}</Text>
+           <Text>Друг {name}</Text>
         </View>
     )
 }

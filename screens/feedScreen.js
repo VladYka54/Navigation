@@ -1,21 +1,33 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { StyleSheet, SafeAreaView, KeyboardAvoidingView } from 'react-native'
 
-const FeedScreen = () => (
-   
-    <View style={styles.container}>
-        <Text>
-            Новини
-        </Text>
-    </View>
-)
+import Todo from '../components/todo'
+
+const FeedScreen = () => {
+    return (
+        <>
+            <SafeAreaView 
+                style={styles.container}
+            >
+                <KeyboardAvoidingView
+                    behavior='padding'
+                    style={styles.todoContainer}
+                >
+                    <Todo />
+                </KeyboardAvoidingView>
+            </SafeAreaView>
+        </>
+    )
+}
+      
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+      },
+      todoContainer: {
+        flex: 1,
+      }
 })
 
 export default FeedScreen

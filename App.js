@@ -9,7 +9,9 @@ export default function App() {
       <StatusBar
         barStyle="dark-content"
       />
-      <AppNavigator />
+      <AppNavigator 
+        style={styles.container}
+      />
     </>
   );
 }
