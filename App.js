@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar } from 'react-native';
-import AppNavigator from './navigation/AppNavigation'
+import MainAppNav from './screens/MainApp'
 
 
 export default function App() {
@@ -9,7 +9,7 @@ export default function App() {
       <StatusBar
         barStyle="dark-content"
       />
-      <AppNavigator 
+      <MainAppNav 
         style={styles.container}
       />
     </>

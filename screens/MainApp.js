@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, StatysBar, ImageBackground, Dimensions } from 'react-native'
+import { createStackNavigator } from 'react-navigation-stack'
+import { createSwitchNavigator, createAppContainer } from 'react-navigation'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, StatysBar, ImageBackground, Dimensions, AsyncStorage, ActivityIndicator, StatusBar } from 'react-native'
+import AppNavigator from '../navigation/AppNavigation'
 
-// import AppNavigator from './navigation/AppNavigation'
-
-const userInfo = {userName: 'admin', password: 'qwerty'}
+const userInfo = {userName: 'admin', password: 'fly'}
 const { width: WIDTH } = Dimensions.get('window')
 
-class LoginScreen extends Component {
-    static navigationOptions = {
-        header: null
-    }
-
+class LoginScreen extends React.Component {
     constructor(props) {
-        super()
+        super(props)
         this.state = {
             userName: '',
             password: ''
         }
+    }
+
+    static navigationOptions = {
+        header: null
     }
     render() {
         return(
@@ -48,7 +49,7 @@ class LoginScreen extends Component {
                         style={styles.btnLogin}
                         onChangeText={(userPassword) => this.setState({userPassword})}
                         value={this.state.userPassword}
-                        onPress={() => this.props.navigation.navigate('Notification')}
+                        onPress={this._login}
                     >
                         <Text style={styles.btnText}>
                             Login
@@ -69,11 +70,31 @@ class LoginScreen extends Component {
     }
     _login = async() => {
         if(userInfo.userName === this.state.userName && userInfo.userPassword === this.state.userPassword) {
-            alert('Logged in))')
-            this.props.navigation.navigate('Notification')
+            await AsyncStorage.setItem('Logged', '1')
+            this.props.navigation.navigate('App')
         }else {
-            alert('U are loser')
+            alert('Wrong password or name')
         }
+    }
+}
+
+class AuthLoadingScreen extends React.Component {
+    componentDidMount() {
+        this._loadData()
+    };
+
+    _loadData = async () => {
+        const isLogged = await AsyncStorage.getItem('Logged')
+        this.props.navigation.navigate(isLogged !== '1' ? 'Auth' : 'App')
+    }
+
+    render() {
+        return(
+            <View>
+                <ActivityIndicator />
+                <StatusBar barStyle='dark-content' />
+            </View>
+        )
     }
 }
 
@@ -116,4 +137,18 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LoginScreen
+
+
+const AuthStack = createStackNavigator({Login: LoginScreen})
+
+const MainAppNav = createSwitchNavigator({
+    AuthLoading: AuthLoadingScreen,
+    App: AppNavigator,
+    Auth: AuthStack
+},{
+   initialRouteName: 'AuthLoading' 
+})
+
+export default createAppContainer(MainAppNav)
+
+
